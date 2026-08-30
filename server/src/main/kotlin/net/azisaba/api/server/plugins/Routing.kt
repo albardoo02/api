@@ -44,6 +44,8 @@ fun Application.configureRouting() {
             get<net.azisaba.api.server.resources.servers.life.RouteAuctions>()
             get<net.azisaba.api.server.resources.servers.life.RouteAuctions.Id>()
             get<net.azisaba.api.server.resources.servers.life.RouteSpawners>()
+            get<net.azisaba.api.server.resources.servers.life.RouteItems>()
+            get<net.azisaba.api.server.resources.servers.life.RouteItems.Name>()
             get<net.azisaba.api.server.resources.interchat.RouteGuilds.List>()
             get<net.azisaba.api.server.resources.interchat.RouteIdentifiedGuilds.Members>()
             get<net.azisaba.api.server.resources.interchat.RouteUserData>()

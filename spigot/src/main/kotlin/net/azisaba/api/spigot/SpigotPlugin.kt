@@ -4,6 +4,7 @@ import net.azisaba.api.Logger
 import net.azisaba.api.Logger.Companion.registerLogger
 import net.azisaba.api.spigot.common.mythic.MythicAPI
 import net.azisaba.api.spigot.tasks.UploadLifeAuctionsFileTask
+import net.azisaba.api.spigot.tasks.UploadLifeItemsTask
 import net.azisaba.api.spigot.tasks.UploadMythicMobsTask
 import net.azisaba.api.spigot.privacy.PrivacyCommand
 import org.bukkit.plugin.java.JavaPlugin
@@ -42,6 +43,9 @@ class SpigotPlugin : JavaPlugin() {
                 MythicAPI.getImplVersion(),
             )
             UploadMythicMobsTask.schedule(20)
+            if (PluginConfig.instance.mythicMobs.uploadItems) {
+                UploadLifeItemsTask.schedule(20 * 5)
+            }
         } else {
             logger.info("MythicMobs is not installed.")
             Logger.currentLogger.info("Unavailable cause:", MythicAPI.unavailableCause)

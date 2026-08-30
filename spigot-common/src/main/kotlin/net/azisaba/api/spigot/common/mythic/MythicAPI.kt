@@ -31,4 +31,10 @@ interface MythicAPI {
     }
 
     fun getSpawner(name: String): MythicSpawner?
+
+    fun getItemNames(): List<String>
+
+    fun getItem(name: String): MythicItem?
+
+    fun getAllItems(): List<MythicItem> = getItemNames().mapNotNull { getItem(it) }
 }
