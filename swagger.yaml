@@ -102,7 +102,7 @@ paths:
                   $ref: "#/components/schemas/Guild"
   /servers/life/items:
     get:
-      summary: Returns a map of child server names to array of items.
+      summary: Returns a map of child server names to array of items. Requires developer group.
       security:
         - bearerAuth: []
       parameters:
@@ -122,9 +122,15 @@ paths:
                   type: array
                   items:
                     $ref: "#/components/schemas/ServerItemData"
+        '403':
+          description: Missing required permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /servers/life/items/{name}:
     get:
-      summary: Returns item details by item name.
+      summary: Returns item details by item name. Requires developer group.
       security:
         - bearerAuth: []
       parameters:
@@ -145,6 +151,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ServerItemData"
+        '403':
+          description: Missing required permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         '404':
           description: Item not found
           content:
