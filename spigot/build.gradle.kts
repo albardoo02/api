@@ -10,6 +10,7 @@ dependencies {
     api(project(":spigot-common"))
     api(project(":spigot-mythic4_12"))
     api(project(":spigot-mythic5_12"))
+    api(project(":spigot-folia"))
     implementation("redis.clients:jedis:5.1.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")

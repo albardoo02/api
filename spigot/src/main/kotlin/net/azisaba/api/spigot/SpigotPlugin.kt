@@ -3,6 +3,7 @@ package net.azisaba.api.spigot
 import net.azisaba.api.Logger
 import net.azisaba.api.Logger.Companion.registerLogger
 import net.azisaba.api.spigot.common.mythic.MythicAPI
+import net.azisaba.api.spigot.common.scheduler.PlatformScheduler
 import net.azisaba.api.spigot.tasks.UploadLifeAuctionsFileTask
 import net.azisaba.api.spigot.tasks.UploadLifeItemsTask
 import net.azisaba.api.spigot.tasks.UploadMythicMobsTask
@@ -15,12 +16,17 @@ class SpigotPlugin : JavaPlugin() {
             private set
     }
 
+    lateinit var scheduler: PlatformScheduler
+        private set
+
     init {
         instance = this
     }
 
     override fun onEnable() {
         logger.registerLogger()
+        scheduler = PlatformScheduler.create(this)
+        if (PlatformScheduler.isFolia()) logger.info("Detected Folia; using region-aware schedulers")
         logger.info("Loading config")
         PluginConfig.loadConfig(dataFolder.toPath())
         logger.info("Connecting to Redis server")
@@ -53,6 +59,7 @@ class SpigotPlugin : JavaPlugin() {
     }
 
     override fun onDisable() {
+        if (::scheduler.isInitialized) scheduler.cancelTasks()
         RedisManager.subscriberThread.shutdownNow()
         RedisManager.pingThread.shutdownNow()
         RedisManager.pool.destroy()
